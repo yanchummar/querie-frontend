@@ -1,23 +1,45 @@
+import AccessPopup from '@/components/AccessPopup'
+import EnhancePopup from '@/components/EnhancePopup'
+import { DEFAULT_SYSTEM_PROMPT } from '@/constants'
 import axios from 'axios'
 import Head from 'next/head'
-import { useState } from 'react'
-import { ArrowRight, Moon } from 'react-feather'
+import { useEffect, useState } from 'react'
+import { ArrowRight, Loader, Moon, Unlock } from 'react-feather'
 
 const logoImg = '/assets/images/logo.svg'
 const logoDarkImg = '/assets/images/logo-dark.svg'
 
-const OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY
-
-const SYSTEM_PROMPT = 'You are an extremely resourceful human being, trained to assist and answer questions and give information.'
-// const SYSTEM_PROMPT = 'You are Charlie Chaplin, and will only give sarcastic and funny answers.'
+const QUERIE_OPENAI_API_KEY = 'QUERIE_OPENAI_API_KEY'
 
 export default function Home() {
+
+  // OpenAI API Key
+  const [openAIKey, setOpenAIKey] = useState(undefined)
+  const [systemPrompt, setSystemPrompt] = useState(DEFAULT_SYSTEM_PROMPT)
 
   const [isSearchView, setIsSearchView] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
+  const [isAccessPopupOpen, setIsAccessPopupOpen] = useState(false)
+  const [isEnhancePopupOpen, setIsEnhancePopupOpen] = useState(false) 
   const [searchInput, setSearchInput] = useState('')
   const [chat, setChat] = useState([])
+
+  useEffect(() => {
+    if (!openAIKey) {
+      // Perform localStorage action
+      const apiKeyValue = localStorage.getItem(QUERIE_OPENAI_API_KEY)
+      console.log(apiKeyValue)
+      setOpenAIKey(apiKeyValue)
+    }
+  }, [])
+
+  const saveOpenAIKey = (key) => {
+    if (key) {
+      localStorage.setItem(QUERIE_OPENAI_API_KEY, key)
+      setOpenAIKey(key)
+    }
+  }
 
   const doSearch = () => {
     if (searchInput.trim() === '') {
@@ -36,7 +58,7 @@ export default function Home() {
       {
         model: 'gpt-3.5-turbo',
         messages: [
-          {role: 'system', content: SYSTEM_PROMPT},
+          {role: 'system', content: systemPrompt},
           ...chat,
           question
         ]
@@ -44,7 +66,7 @@ export default function Home() {
       {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + OPENAI_API_KEY
+          'Authorization': 'Bearer ' + openAIKey
         }
       }
     )
@@ -55,6 +77,20 @@ export default function Home() {
       setSearchInput('')
       setIsSearching(false)
     })
+  }
+
+  const openAccessPopup = () => {
+    setIsAccessPopupOpen(true)
+  }
+  const closeAccessPopup = () => {
+    setIsAccessPopupOpen(false)
+  }
+
+  const openEnhancePopup = () => {
+    setIsEnhancePopupOpen(true)
+  }
+  const closeEnhancePopup = () => {
+    setIsEnhancePopupOpen(false)
   }
 
   return (
@@ -104,16 +140,37 @@ export default function Home() {
                 placeholder='Ask anything...'
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
-                    doSearch()
+                    if (openAIKey) {
+                      doSearch()
+                    } else {
+                      openAccessPopup()
+                    }
                   }
                 }}
                 value={searchInput}
                 onInput={(e) => setSearchInput(e.target.value)}  />
-              <ArrowRight 
-                className={`go-icon ${searchInput.trim() === '' ? 'disabled' : ''}`} 
-                strokeWidth={3}
-                onClick={doSearch} />
+              {
+                openAIKey ? (
+                  <ArrowRight 
+                    className={`go-icon ${searchInput.trim() === '' ? 'disabled' : ''}`} 
+                    strokeWidth={3}
+                    onClick={doSearch} />
+                ) : (
+                  <Unlock 
+                    className='unlock-icon'
+                    strokeWidth={3}
+                    onClick={openAccessPopup} />
+                )
+              }
             </div>
+
+            <button 
+              className='enhance-btn'
+              onClick={openEnhancePopup}>
+              <Loader className='loader-icon' strokeWidth={3} />
+              <span>Enhance</span>
+            </button>
+
           </div>
         </div>
         <div className='results-content'>
@@ -147,6 +204,18 @@ export default function Home() {
             </li>
           </ul>
         </div>
+
+        <AccessPopup
+          isOpen={isAccessPopupOpen}
+          closePopup={closeAccessPopup}
+          saveOpenAIKey={saveOpenAIKey} />
+
+        <EnhancePopup
+          isOpen={isEnhancePopupOpen}
+          closePopup={closeEnhancePopup}
+          promptInput={systemPrompt}
+          setPromptInput={setSystemPrompt} />
+      
       </main>
     </>
   )
