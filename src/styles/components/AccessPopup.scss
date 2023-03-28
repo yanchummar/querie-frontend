@@ -307,3 +307,31 @@
     }
   }
 }
+
+@media only screen and (max-width: 800px) {
+
+  .popup-container {
+    align-items: flex-end;
+    .popup-card {
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+      .card-content {
+        .text-holder {
+          padding: 16px 24px 8px 24px;
+        }
+        .notes-holder {
+          .note-points {
+            li {
+              line-height: 150%;
+            }
+          }
+        }
+        .input-holder {
+          margin: 2px 22px 30px 22px;
+        }
+      }
+    }
+  }
+
+}

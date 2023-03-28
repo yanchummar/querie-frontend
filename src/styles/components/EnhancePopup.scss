@@ -247,3 +247,28 @@
     }
   }
 }
+
+@media only screen and (max-width: 800px) {
+
+  .enhance-popup-container {
+    align-items: flex-end;
+    .popup-card {
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+      .card-content {
+        .text-holder {
+          padding: 16px 24px 8px 24px;
+        }
+        .prompt-input {
+          margin: 5px 22px 14px 22px;
+          height: 100px;
+        }
+        .characters-list {
+          padding-bottom: 40px;
+        }
+      }
+    }
+  }
+
+}
