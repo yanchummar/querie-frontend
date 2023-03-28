@@ -55,8 +55,6 @@ export default function Home() {
     })
   }
 
-  console.log(chat)
-
   return (
     <>
       <Head>
