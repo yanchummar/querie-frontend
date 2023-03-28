@@ -20,7 +20,7 @@ export default function Home() {
   const [isSearchView, setIsSearchView] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
-  const [isAccessPopupOpen, setIsAccessPopupOpen] = useState(true)
+  const [isAccessPopupOpen, setIsAccessPopupOpen] = useState(false)
   const [isEnhancePopupOpen, setIsEnhancePopupOpen] = useState(false) 
   const [searchInput, setSearchInput] = useState('')
   const [chat, setChat] = useState([])
