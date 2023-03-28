@@ -1,9 +1,10 @@
 import axios from 'axios'
 import Head from 'next/head'
 import { useState } from 'react'
-import { ArrowRight } from 'react-feather'
+import { ArrowRight, Moon } from 'react-feather'
 
 const logoImg = '/assets/images/logo.svg'
+const logoDarkImg = '/assets/images/logo-dark.svg'
 
 const OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY
 
@@ -13,6 +14,7 @@ const SYSTEM_PROMPT = 'You are an extremely resourceful human being, trained to 
 export default function Home() {
 
   const [isSearchView, setIsSearchView] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
   const [searchInput, setSearchInput] = useState('')
   const [chat, setChat] = useState([])
@@ -63,12 +65,17 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`main-content ${isSearchView ? 'search' : ''}`}>
+      <main className={`main-content ${isSearchView ? 'search' : ''} ${isDarkMode ? 'dark' : ''}`}>
+        <button 
+          className='dark-mode-btn'
+          onClick={() => setIsDarkMode(!isDarkMode)}>
+          <Moon className='moon-icon' strokeWidth={2} />
+        </button>
         <div className='search-bar-content'>
           <div className='search-bar-holder'>
             <div className='search-view-holder'>
               <img 
-                src={logoImg} 
+                src={isDarkMode ? logoDarkImg : logoImg} 
                 className='logo-img'
                 onClick={() => {
                   setIsSearchView(false)
