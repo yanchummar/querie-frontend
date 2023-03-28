@@ -60,7 +60,7 @@ export default function Home() {
       <Head>
         <title>Querie — Simplest way to ask ChatGPT</title>
         <meta name="description" content="Ask anything to ChatGPT, in a friendly search engine style interface." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`main-content ${isSearchView ? 'search' : ''}`}>
