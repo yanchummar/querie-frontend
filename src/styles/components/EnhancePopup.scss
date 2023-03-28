@@ -256,6 +256,7 @@
       border-radius: 0;
       border-left: none;
       border-right: none;
+      border-bottom: none;
       .card-content {
         .text-holder {
           padding: 16px 24px 8px 24px;
@@ -267,6 +268,16 @@
         .characters-list {
           padding-bottom: 40px;
         }
+      }
+    }
+  }
+
+  .dark {
+    .enhance-popup-container {
+      .popup-card {
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
       }
     }
   }

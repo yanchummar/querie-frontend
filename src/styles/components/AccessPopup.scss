@@ -316,6 +316,7 @@
       border-radius: 0;
       border-left: none;
       border-right: none;
+      border-bottom: none;
       .card-content {
         .text-holder {
           padding: 16px 24px 8px 24px;
@@ -330,6 +331,16 @@
         .input-holder {
           margin: 2px 22px 30px 22px;
         }
+      }
+    }
+  }
+
+  .dark {
+    .enhance-popup-container {
+      .popup-card {
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
       }
     }
   }

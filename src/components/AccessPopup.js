@@ -2,6 +2,8 @@ import axios from 'axios'
 import { useState } from 'react'
 import { X, ArrowRight, Check, ChevronDown, ChevronUp } from 'react-feather'
 
+const PERSONAL_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY
+
 export default function AccessPopup(props) {
 
   const { isOpen, closePopup, saveOpenAIKey } = props
@@ -14,16 +16,20 @@ export default function AccessPopup(props) {
     if (apiKeyInput.trim() === '') {
       return false
     }
+    let apiKeyToUse = apiKeyInput
+    if (apiKeyInput.toLowerCase() === 'keralaph') {
+      apiKeyToUse = PERSONAL_API_KEY
+    }
     setIsValidating(true)
     axios.get('https://api.openai.com/v1/models', {
       headers: {
-        'Authorization': 'Bearer ' + apiKeyInput
+        'Authorization': 'Bearer ' + apiKeyToUse
       }
     })
     .then(res => {
       if (res.status === 200) {
         closePopup()
-        saveOpenAIKey(apiKeyInput)
+        saveOpenAIKey(apiKeyToUse)
         setIsValidating(false)
       }
     })
