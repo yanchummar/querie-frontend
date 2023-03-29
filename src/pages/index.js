@@ -1,10 +1,11 @@
 import AccessPopup from '@/components/AccessPopup'
 import EnhancePopup from '@/components/EnhancePopup'
+import SearchResult from '@/components/SearchResult'
 import { DEFAULT_SYSTEM_PROMPT } from '@/constants'
 import axios from 'axios'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import { ArrowRight, Loader, Moon, Unlock } from 'react-feather'
+import { ArrowRight, Key, Loader, Moon, Unlock } from 'react-feather'
 
 const logoImg = '/assets/images/logo.svg'
 const logoDarkImg = '/assets/images/logo-dark.svg'
@@ -74,9 +75,15 @@ export default function Home() {
       console.log(result.data.choices[0])
       const answer = result.data.choices[0].message
       setChat(prevChat => [...prevChat, question, answer])
-      setSearchInput('')
+      checkAndClearSearchInput(question)
       setIsSearching(false)
     })
+  }
+
+  const checkAndClearSearchInput = (question) => {
+    if (question.content === searchInput) {
+      setSearchInput('')
+    }
   }
 
   const openAccessPopup = () => {
@@ -98,15 +105,21 @@ export default function Home() {
       <Head>
         <title>Querie — Simplest way to ask ChatGPT</title>
         <meta name="description" content="Ask anything to ChatGPT, in a friendly search engine style interface." />
-        <meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`main-content ${isSearchView ? 'search' : ''} ${isDarkMode ? 'dark' : ''}`}>
-        <button 
-          className='dark-mode-btn'
-          onClick={() => setIsDarkMode(!isDarkMode)}>
-          <Moon className='moon-icon' strokeWidth={2} />
-        </button>
+        <div className='topbar-btn-holder'>
+          <button 
+            className='round-btn key'
+            onClick={openAccessPopup}>
+            <Key className='icon' strokeWidth={2} />
+          </button>
+          <button 
+            className='round-btn'
+            onClick={() => setIsDarkMode(!isDarkMode)}>
+            <Moon className='icon' strokeWidth={2} />
+          </button>
+        </div>
         <div className='search-bar-content'>
           <div className='search-bar-holder'>
             <div className='search-view-holder'>
@@ -176,38 +189,17 @@ export default function Home() {
         <div className='results-content'>
           <span className='section-title'>ChatGPT Response</span>
           <ul className='chat-results'>
-            <li className='main-card'>
-              {
-                !isSearching && chat.length > 1 ? (
-                  <>
-                    <span className='question-text'>{chat[chat.length-2].content}</span>
-                    <p className='reply-text'>
-                      {chat[chat.length-1].content}
-                    </p>
-                  </>
-                ) : (
-                  <div className='loading-holder'>
-                    <div className='brick shimmer thick' />
-                    <br />
-                    <div className='brick shimmer' style={{width: '100%'}} />
-                    <div className='brick shimmer' style={{width: '80%'}} />
-                    <div className='brick shimmer' style={{width: '90%'}} />
-                    <br />
-                    <div className='brick shimmer' style={{width: '75%'}} />
-                    <div className='brick shimmer' style={{width: '95%'}} />
-                    <br />
-                    <div className='brick shimmer' style={{width: '60%'}} />
-                    <div className='brick shimmer' style={{width: '45%'}} />
-                  </div>
-                )
-              }
-            </li>
+            <SearchResult  
+              chat={chat}
+              isSearching={isSearching}
+              isDarkMode={isDarkMode} />
           </ul>
         </div>
 
         <AccessPopup
           isOpen={isAccessPopupOpen}
           closePopup={closeAccessPopup}
+          openAIKey={openAIKey}
           saveOpenAIKey={saveOpenAIKey} />
 
         <EnhancePopup

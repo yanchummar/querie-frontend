@@ -23,8 +23,8 @@
     right: 0;
     bottom: 0;
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     transition: all 0.2s;
   }
   .popup-card {
@@ -191,7 +191,7 @@
           outline: none;
           background: transparent;
           font-family: 'Satoshi', sans-serif;
-          color: #333;
+          color: #444;
           &::placeholder {
             font-weight: 500;
             letter-spacing: 0.08em;

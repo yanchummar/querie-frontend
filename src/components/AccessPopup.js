@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { X, ArrowRight, Check, ChevronDown, ChevronUp } from 'react-feather'
 
 const PERSONAL_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY
 
 export default function AccessPopup(props) {
 
-  const { isOpen, closePopup, saveOpenAIKey } = props
+  const { isOpen, closePopup, openAIKey, saveOpenAIKey } = props
 
   const [isNotesOpen, setIsNotesOpen] = useState(false)
   const [isValidating, setIsValidating] = useState(false)
@@ -35,6 +35,12 @@ export default function AccessPopup(props) {
     })
   }
 
+  useEffect(() => {
+    if (openAIKey) {
+      setApiKeyInput(openAIKey)
+    }
+  }, [openAIKey])
+
   return (
     <>
       <div className={`popup-container ${isOpen ? '' : 'hidden'}`}>
@@ -45,7 +51,7 @@ export default function AccessPopup(props) {
         <div className='popup-card'>
           <div className='header'>
             <span className='title-text'>
-              Setup access to ChatGPT
+              { openAIKey ? 'Update access to ChatGPT' : 'Setup access to ChatGPT'}
             </span>
             <X 
               className='close-icon'
@@ -93,7 +99,7 @@ export default function AccessPopup(props) {
                   ) : (
                     <>
                       <Check className='check-icon' strokeWidth={3} />
-                      <span>Save API Key</span>
+                      <span>{openAIKey ? 'Change API Key' : 'Save API Key'}</span>
                     </>
                   )
                 }
