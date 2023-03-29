@@ -496,6 +496,7 @@
             flex-direction: column;
             align-items: flex-start;
             .mini-search-bar {
+              display: flex;
               width: 100%;
               margin-left: 0;
               margin-top: 18px;
@@ -517,6 +518,7 @@
           flex-direction: column;
           align-items: flex-start;
           .mini-search-bar {
+            display: none;
             max-height: 0px;
           }
           .logo-img {
