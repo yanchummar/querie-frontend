@@ -402,6 +402,8 @@
     display: none;
     flex-direction: column;
     width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
     height: 0px;
     max-height: 0px;
     transition: all 0.2s;

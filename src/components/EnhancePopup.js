@@ -76,7 +76,7 @@ export default function EnhancePopup(props) {
             <div className='character-section'>
               <div className='text-holder bottom'>
                 <span className='title-text'>
-                  <span>Ask a character</span>
+                  <span>Ask a specialist</span>
                 </span>
                 <span className='subtitle-text'>Choose a character/personality to answer your questions.</span>
               </div>
