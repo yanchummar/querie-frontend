@@ -1,6 +1,5 @@
 .main-content {
   display: flex;
-  height: 100vh;
   max-width: 100vw;
   overflow-x: hidden;
   overflow: scroll;
@@ -385,6 +384,7 @@
         text-transform: uppercase;
         gap: 7px;
         margin-top: 12px;
+        margin-bottom: 4px;
         transition: all 0.2s;
         cursor: pointer;
         &:hover {
@@ -403,7 +403,6 @@
     flex-direction: column;
     width: 100%;
     max-width: 100vw;
-    overflow-x: hidden;
     height: 0px;
     max-height: 0px;
     transition: all 0.2s;
@@ -502,6 +501,9 @@
               margin-top: 18px;
               max-height: 100px;
             }
+            .logo-img {
+              margin-left: 6px;
+            }
           }
           .search-bar {
             display: none;
@@ -523,7 +525,6 @@
           }
           .logo-img {
             height: 40px;
-            margin-left: 6px;
           }
         }
         .subtext {
