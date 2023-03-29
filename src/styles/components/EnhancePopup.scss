@@ -24,6 +24,7 @@
     bottom: 0;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     transition: all 0.2s;
   }
   .popup-card {
@@ -117,6 +118,7 @@
       .prompt-input {
         padding: 9px 16px;
         background: #FFFFFF;
+        // height: 100px;
         border: 1px solid #E0E0E0;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
         border-radius: 10px;
