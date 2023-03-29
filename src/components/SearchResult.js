@@ -29,12 +29,14 @@ export default function SearchResult(props) {
                 {
                   blocks.map((text, index) => {
                     if (index % 2 !== 0 && text !== '') {
-                      console.log(text)
+                      const language = text.split('\n')[0]
+                      const finalText = text.substring(language.length+1)
                       return (
                         <SyntaxHighlighter
                           wrapLongLines
+                          language={language}
                           style={isDarkMode ? vscDarkPlus : vs}>
-                          {text.trim()}
+                          {finalText.trim()}
                         </SyntaxHighlighter>
                       )
                     } else if (text !== '') {

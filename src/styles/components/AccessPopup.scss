@@ -191,7 +191,7 @@
           outline: none;
           background: transparent;
           font-family: 'Satoshi', sans-serif;
-          color: #444;
+          color: #696969;
           &::placeholder {
             font-weight: 500;
             letter-spacing: 0.08em;
@@ -337,7 +337,7 @@
   }
 
   .dark {
-    .enhance-popup-container {
+    .popup-container {
       .popup-card {
         border-left: none;
         border-right: none;
