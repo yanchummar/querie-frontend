@@ -136,7 +136,12 @@ export default function Home() {
                   placeholder='Ask a new or follow-up question...'
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
-                      doSearch()
+                      e.target.blur()
+                      if (openAIKey) {
+                        doSearch()
+                      } else {
+                        openAccessPopup()
+                      }
                     }
                   }}
                   value={searchInput}
@@ -154,6 +159,7 @@ export default function Home() {
                 placeholder='Ask anything...'
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
+                    e.target.blur()
                     if (openAIKey) {
                       doSearch()
                     } else {
