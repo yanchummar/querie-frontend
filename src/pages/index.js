@@ -30,7 +30,6 @@ export default function Home() {
     if (!openAIKey) {
       // Perform localStorage action
       const apiKeyValue = localStorage.getItem(QUERIE_OPENAI_API_KEY)
-      console.log(apiKeyValue)
       setOpenAIKey(apiKeyValue)
     }
   }, [])
@@ -72,7 +71,6 @@ export default function Home() {
       }
     )
     .then(result => {
-      console.log(result.data.choices[0])
       const answer = result.data.choices[0].message
       setChat(prevChat => [...prevChat, question, answer])
       checkAndClearSearchInput(question)
@@ -128,6 +126,7 @@ export default function Home() {
                 src={isDarkMode ? logoDarkImg : logoImg} 
                 className='logo-img'
                 onClick={() => {
+                  setChat([])
                   setIsSearchView(false)
                 }} />
               <div className='mini-search-bar'>
