@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { X, ArrowRight, Check, ChevronDown, ChevronUp } from 'react-feather'
 
-const PERSONAL_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY
+// const PERSONAL_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY
 
 export default function AccessPopup(props) {
 
@@ -17,9 +17,9 @@ export default function AccessPopup(props) {
       return false
     }
     let apiKeyToUse = apiKeyInput
-    if (apiKeyInput.toLowerCase() === 'keralaph') {
-      apiKeyToUse = PERSONAL_API_KEY
-    }
+    // if (apiKeyInput.toLowerCase() === 'keralaph') {
+    //   apiKeyToUse = PERSONAL_API_KEY
+    // }
     setIsValidating(true)
     axios.get('https://api.openai.com/v1/models', {
       headers: {
